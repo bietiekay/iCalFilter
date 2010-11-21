@@ -1,0 +1,33 @@
+(C) Daniel Kirstenpfad 2009-2010
+iCalFilter Tool
+
+I am managing my appointments using Outlook on windows and iCal on OS X. 
+Since I am not using any Exchange service right now I was happy to find out 
+that Outlook offers a functionality to export a local calendar automatically 
+to an iCalendar compatible ICS file. Great feature but it lacks some things I
+desperately need.
+
+Since I am managing my private and my business appointments in the same
+calendar, differentiating just by categories, I had a hard time configuring
+outlook to export 
+	a) an ics file containing all business appointments and 
+	b) an ics file containing all private appointments. It’s not possible
+	   to make the story short.
+
+So I fired up Visual Studio as usual and wrote my own filter tool. I shall call
+it “iCalFilter”. It’s name is as simple as it’s functionality and code. I am
+releasing it under BSD license including the sources so everyone can use and
+modify it.
+
+It’s a command line tool which should compile on Microsoft .NET and Mono. It
+takes several command line parameters like:
+
+   1. Input-File
+   2. Output-File
+   3. “include” or “exclude” –> this determines if the following categories are
+      included or excluded in the output file
+   4. a list of categories separated by spaces
+   5. an optional parameter “-remove-description” which, if entered, removes all
+      descriptions from events and alarms
+
+Easy, eh?!
