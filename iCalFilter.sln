@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iCalFilter", "iCalFilter\iCalFilter.csproj", "{8CE3F371-4CCB-490A-A53A-686B86EC0330}"
 EndProject
 Global
@@ -13,6 +13,9 @@ Global
 		{8CE3F371-4CCB-490A-A53A-686B86EC0330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE3F371-4CCB-490A-A53A-686B86EC0330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE3F371-4CCB-490A-A53A-686B86EC0330}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = iCalFilter\iCalFilter.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
