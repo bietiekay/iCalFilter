@@ -13,9 +13,10 @@ namespace iCalFilter
             List<String> Categories = new List<string>();
             Boolean Exclude = false;
             Boolean RemoveDescription = false;
-
-            Console.WriteLine("iCalFilter Tool 0.1");
-            Console.WriteLine("(C) Daniel Kirstenpfad 2009-2010 - http://www.technology-ninja.com");
+			Boolean RemoveAttendees = false;
+			
+            Console.WriteLine("iCalFilter Tool 0.2");
+            Console.WriteLine("(C) Daniel Kirstenpfad 2009-2011 - http://www.technology-ninja.com");
             Console.WriteLine("    Released under AGPLv3 License - see license.txt for details.");
             Console.WriteLine();
 
@@ -26,7 +27,7 @@ namespace iCalFilter
                 Console.WriteLine("Small tool which filters iCalendar files by categories and outputs a new iCalendar file.");
                 Console.WriteLine();
                 Console.WriteLine("Syntax:");
-                Console.WriteLine("icalfilter <input-ical-file> <output-ical-file> <exclude / include> <category-name> [-remove-description] [more-categories-to-include-separated-by-comma]");
+                Console.WriteLine("icalfilter <input-ical-file> <output-ical-file> <exclude / include> <category-name> [-remove-description] [-remove-attendees] [more-categories-to-include-separated-by-comma]");
                 Console.WriteLine();
                 return;
             }
@@ -57,10 +58,14 @@ namespace iCalFilter
                 {
                     RemoveDescription = true;
                 }
+				else
+					if (args[i].ToUpper() == "-REMOVE-ATTENDEES")	
+					{
+						RemoveAttendees = true;
+					}
                 else
                     Console.WriteLine("                      "+args[i]);
             }
-
             #endregion
 
             #endregion
@@ -68,7 +73,7 @@ namespace iCalFilter
             String[] iCalInputFile = File.ReadAllLines(args[0]);
 
             // open output
-            TextWriter iCalOutputWriter = new StringWriter();
+            //TextWriter iCalOutputWriter = new StringWriter();
             TextWriter iCalOutputFile = new StreamWriter(args[1]);
 
             int CurrentPosition = 0;
@@ -90,7 +95,6 @@ namespace iCalFilter
                     {
                         case "VEVENT":
                             CurrentPosition++;
-
                             while (true)
                             {
                                 CompleteElement.Add(iCalInputFile[CurrentPosition]);
@@ -101,7 +105,22 @@ namespace iCalFilter
                                     CategoriesLine = iCalInputFile[CurrentPosition];
 
                                 CurrentPosition++;
-
+								
+								if (RemoveAttendees)
+								{
+									if (splitted2[0] == "ATTENDEE")
+									{
+										CompleteElement.RemoveAt(CompleteElement.Count-1);
+										while(true)
+										{
+                                            if (iCalInputFile[CurrentPosition][0] == '\t')
+                                                CurrentPosition++;
+                                            else
+                                                break;
+										}
+									}
+								}
+								
                                 if (RemoveDescription)
                                 {
                                     if ( (splitted[0] == "DESCRIPTION") | (splitted2[0] == "X-ALT-DESC") )
@@ -112,7 +131,7 @@ namespace iCalFilter
                                             if (iCalInputFile[CurrentPosition][0] == '\t')
                                                 CurrentPosition++;
                                             else
-                                                break;
+												break;
                                         }
                                     }
                                 }
@@ -140,6 +159,7 @@ namespace iCalFilter
                             break;
                         default:
                             iCalOutputFile.WriteLine(iCalInputFile[CurrentPosition]);
+							CompleteElement.Clear();
                             CurrentPosition++;
                             break;
                     }
@@ -163,6 +183,12 @@ namespace iCalFilter
                             // if we should include
                             foreach (String Category in Categories)
                             {
+								// if there is anywhere in the categories a * declared we should take ALL categories
+								if (Category == "*")
+								{
+									takethisElement = true;
+									break;
+								}
                                 if (CategoriesLine.ToUpper().Contains(Category))
                                     takethisElement = true;
                             }
@@ -185,6 +211,6 @@ namespace iCalFilter
             }
 
             iCalOutputFile.Close();
+			}
         }
-    }
 }

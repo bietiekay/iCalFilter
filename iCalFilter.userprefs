@@ -2,11 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="iCalFilter/iCalFilter.cs">
     <Files>
-      <File FileName="iCalFilter/iCalFilter.cs" Line="24" Column="33" />
+      <File FileName="iCalFilter/iCalFilter.cs" Line="162" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/bietiekay/Coding/iCalFilter/iCalFilter/iCalFilter.cs" line="201" />
+      <Breakpoint file="/Users/bietiekay/Coding/iCalFilter/iCalFilter/iCalFilter.cs" line="208" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
